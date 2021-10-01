@@ -1,10 +1,15 @@
 import React from "react"
+import List from '@mui/material/List'
+
+import Vote from './components/Vote'
 
 function App() {
-    return (<div>
-        <h2>Welcome to React App</h2>
-        <h3>Date : {new Date().toDateString()}</h3>
-    </div>)
+  return (
+    <List>
+      <Vote name="James" value="0.5" />
+      <Vote name="James 1" value="2" />
+    </List>
+  )
 }
 
 export default App
