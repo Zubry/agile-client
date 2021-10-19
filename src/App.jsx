@@ -32,7 +32,7 @@ function App() {
         <Card>
           <CardContent>
             <Button onClick={() => setVote(vote => vote + 1)}>Change vote</Button>
-            <Button onClick={() => socket !== null && send(socket, 'start:pointing_poker')}>Start</Button>
+            <Button onClick={() => socket !== null && send(socket, 'start', 'pointing_poker')}>Start</Button>
           </CardContent>
         </Card>
       </Box>
