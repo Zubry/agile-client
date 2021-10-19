@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import List from '@mui/material/List'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,15 +6,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 
 import Theme from './theme'
 
 import Vote from './components/Vote'
 import VoteButton from './components/VoteButton'
 
+import useWebSocket from './hooks/useWebSocket'
+import { send } from './websocket'
+
 function App() {
   const [vote, setVote] = useState(0.5)
+
+  const socket = useWebSocket((socket) => {
+    socket.addEventListener('message', e => {
+      console.log(e)
+    })
+  })
 
   return (
     <Theme>
@@ -24,6 +32,7 @@ function App() {
         <Card>
           <CardContent>
             <Button onClick={() => setVote(vote => vote + 1)}>Change vote</Button>
+            <Button onClick={() => socket !== null && send(socket, 'start:pointing_poker')}>Start</Button>
           </CardContent>
         </Card>
       </Box>
