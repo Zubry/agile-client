@@ -13,7 +13,7 @@ import Points from './Points'
 
 const Vote = ({ name, value, isRevealed }) => {
   return (
-    <Fade in>
+    <Fade in key={name}>
       <div>
         <ListItem>
           <ListItemAvatar sx={{ width: 4, minWidth: 0, marginRight: 2 }}>
@@ -22,8 +22,8 @@ const Vote = ({ name, value, isRevealed }) => {
           <ListItemText>{ name }</ListItemText>
           <ListItemSecondaryAction>
             <ListItemText edge="end">
-              <Box width="24px" textAlign="center">
-                <Zoom in>
+              <Box sx={{ width: 36, textAlign: 'center' }}>
+                <Zoom in key={`${value}-${isRevealed}`}>
                   <div>
                     <Points value={value} isRevealed={isRevealed} />
                   </div>
