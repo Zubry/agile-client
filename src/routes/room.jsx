@@ -2,17 +2,20 @@ import React, { useEffect } from 'react'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
 
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 
+import SetName from '../components/SetName'
+import Votes from '../components/Votes'
 import { setId } from '../features/pointing-poker/slice'
-import { join } from '../features/pointing-poker/actions'
 
 const Room = () => {
   const { room: roomParam } = useParams()
   const dispatch = useDispatch()
-  const room = useSelector(state => state.pointingPoker.id)
+  const isActive = useSelector(state => !!state.pointingPoker.game)
   const isConnected = useSelector(state => state.websocket.connected)
 
   useEffect(() => {
@@ -21,16 +24,27 @@ const Room = () => {
     }
   }, [roomParam])
 
-  useEffect(() => {
-    if (room && isConnected) {
-      dispatch(join(room))
-    }
-  }, [room, isConnected])
+  if (!isConnected) {
+    return (
+      <Card>
+        <CardContent>
+          <Skeleton />
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
       <CardContent>
-        {room}
+        {!isActive && (
+          <Stack direction="row" spacing={1} justifyContent="center" alignItems="center"><SetName /></Stack>
+        )}
+        {
+          isActive && (
+            <Votes />
+          )
+        }
       </CardContent>
     </Card>
   )

@@ -64,19 +64,6 @@ function App() {
         </Card>
       </Box>
       <Box p={2}>
-        <Typography paragraph variant="h2">Vote display</Typography>
-        <Card>
-          <CardContent>
-            <List>
-              <Vote name="James" value={vote} isRevealed/>
-              <Vote name="James 1" isRevealed />
-              <Vote name="James 1" />
-              <Vote name="James 1" value="2" />
-            </List>
-          </CardContent>
-        </Card>
-      </Box>
-      <Box p={2}>
         <Typography paragraph variant="h2">Vote Buttons</Typography>
         <Card>
           <CardContent>

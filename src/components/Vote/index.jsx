@@ -9,9 +9,14 @@ import Box from '@mui/material/Box';
 import Zoom from '@mui/material/Zoom';
 import Fade from '@mui/material/Fade';
 
+import { useSelector } from 'react-redux'
+
 import Points from './Points'
 
-const Vote = ({ name, value, isRevealed }) => {
+const Vote = ({ name }) => {
+  const vote = useSelector(state => state.pointingPoker.state.votes[name])
+  const isRevealed = false
+
   return (
     <Fade in key={name}>
       <div>
@@ -23,9 +28,9 @@ const Vote = ({ name, value, isRevealed }) => {
           <ListItemSecondaryAction>
             <ListItemText edge="end">
               <Box sx={{ width: 36, textAlign: 'center' }}>
-                <Zoom in key={`${value}-${isRevealed}`}>
+                <Zoom in key={`${vote}-${isRevealed}`}>
                   <div>
-                    <Points value={value} isRevealed={isRevealed} />
+                    <Points value={vote} isRevealed={isRevealed} />
                   </div>
                 </Zoom>
               </Box>

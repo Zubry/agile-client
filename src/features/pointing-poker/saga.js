@@ -18,9 +18,9 @@ export function* start() {
 }
 
 export function* join() {
-  const { room } = yield take(pointingPoker.JOIN)
+  const { room, name } = yield take(pointingPoker.JOIN)
 
-  const { id } = yield put(websocket.send('join', room, 'testuser'))
+  const { id } = yield put(websocket.send('join', room, name))
 
   const { payload } = yield take(`${id}:${websocket.MESSAGE}`)
 
