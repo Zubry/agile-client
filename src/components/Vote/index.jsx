@@ -15,7 +15,7 @@ import Points from './Points'
 
 const Vote = ({ name }) => {
   const vote = useSelector(state => state.pointingPoker.state.votes[name])
-  const isRevealed = false
+  const isRevealed = true
 
   return (
     <Fade in key={name}>

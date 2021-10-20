@@ -25,7 +25,7 @@ const Index = () => {
   return (
     <form onSubmit={handleJoin}>
       <Stack direction="row" spacing={1} alignItems="center">
-        <TextField onChange={e => setRoomId(e.target.value)} margin="dense" size="small"/>
+        <TextField label="Room ID" onChange={e => setRoomId(e.target.value)} margin="dense" size="small"/>
         <Button disabled={roomId === ''} variant="contained" type="submit" style={{ marginTop: '4px' }}>Join</Button>
       </Stack>
     </form>

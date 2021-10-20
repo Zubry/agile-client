@@ -22,7 +22,17 @@ export function* join() {
 
   const { id } = yield put(websocket.send('join', room, name))
 
-  const { payload } = yield take(`${id}:${websocket.MESSAGE}`)
+  yield take(`${id}:${websocket.MESSAGE}`)
+
+  return true
+}
+
+export function* vote() {
+  const { vote } = yield take(pointingPoker.VOTE)
+
+  const { id } = yield put(websocket.send('vote', vote))
+
+  yield take(`${id}:${websocket.MESSAGE}`)
 
   return true
 }
@@ -46,4 +56,10 @@ export function* pointingPokerSaga() {
   }
 
   yield fork(handleUpdates)
+
+  while (true) {
+    yield race({
+      vote: call(vote)
+    })
+  }
 }

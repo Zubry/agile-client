@@ -23,7 +23,7 @@ const SetName = () => {
   return (
     <form onSubmit={handleJoin}>
       <Stack direction="row" spacing={1} alignItems="center">
-        <TextField onChange={e => setName(e.target.value)} margin="dense" size="small"/>
+        <TextField label="Your name" onChange={e => setName(e.target.value)} margin="dense" size="small"/>
         <Button disabled={name === ''} variant="contained" type="submit" style={{ marginTop: '4px' }}>Join</Button>
       </Stack>
     </form>

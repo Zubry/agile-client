@@ -26,7 +26,6 @@ import Index from './routes/index'
 import Room from './routes/room'
 
 function App() {
-  const [vote, setVote] = useState(0.5)
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -53,31 +52,11 @@ function App() {
         <Typography paragraph variant="h2">Testing</Typography>
         <Card>
           <CardContent>
-            <Button onClick={() => setVote(vote => vote + 1)}>Change vote</Button>
-            <Button onClick={() => dispatch(pointingPoker.start())}>Start</Button>
             <code>
               <pre>
                 {JSON.stringify(state, null, 2)}
               </pre>
             </code>
-          </CardContent>
-        </Card>
-      </Box>
-      <Box p={2}>
-        <Typography paragraph variant="h2">Vote Buttons</Typography>
-        <Card>
-          <CardContent>
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" spacing={2} sx={{ flexWrap: 'wrap' }}>
-              <VoteButton>0.5</VoteButton>
-              <VoteButton>1</VoteButton>
-              <VoteButton>2</VoteButton>
-              <VoteButton>3</VoteButton>
-              <VoteButton>5</VoteButton>
-              <VoteButton>8</VoteButton>
-              <VoteButton>13</VoteButton>
-              <VoteButton>Break</VoteButton>
-              <VoteButton>?</VoteButton>
-            </Box>
           </CardContent>
         </Card>
       </Box>
