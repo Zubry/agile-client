@@ -33,7 +33,8 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
   devServer: {
-    port: 3000
+    port: 3000,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

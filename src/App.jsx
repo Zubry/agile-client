@@ -6,7 +6,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 
 import Theme from './theme'
@@ -16,6 +21,8 @@ import VoteButton from './components/VoteButton'
 
 import * as websocket from './features/websocket/actions'
 import * as pointingPoker from './features/pointing-poker/actions'
+
+import Index from './routes/index'
 
 function App() {
   const [vote, setVote] = useState(0.5)
@@ -31,6 +38,15 @@ function App() {
     <Theme>
       <CssBaseline />
       <Box p={2}>
+        <Typography paragraph variant="h2">App</Typography>
+        <Router>
+          <Switch>
+            <Route path="/:room"></Route>
+            <Route path="*">
+              <Index />
+            </Route>
+          </Switch>
+        </Router>
         <Typography paragraph variant="h2">Testing</Typography>
         <Card>
           <CardContent>
