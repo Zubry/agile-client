@@ -10,9 +10,12 @@ export const slice = createSlice({
   reducers: {
     setId: (state, action) => {
       state.id = action.payload
+    },
+    update: (state, action) => {
+      return action.payload
     }
   }
 })
 
-export const { setId } = slice.actions
+export const { setId, update } = slice.actions
 export default slice.reducer

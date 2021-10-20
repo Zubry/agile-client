@@ -10,9 +10,12 @@ function socketChannel(socket) {
     socket.addEventListener('open', function () {
       emitter(actions.connected())
     })
+    
     socket.addEventListener('message', function (message) {
-      const [id, payload] = message.data.split(':', 2)
-      emitter(actions.message(id, payload))
+      const i = message.data.indexOf(':');
+      const [id, payload] = [message.data.slice(0,i), message.data.slice(i+1)];
+
+      emitter(actions.received(id, payload))
     })
 
     return () => {
@@ -30,6 +33,22 @@ function* responseHandler(socket) {
   }
 }
 
+function* sendMessages(socket) {
+  while (true) {
+    const { id, payload } = yield take(actions.SEND)
+  
+    send(socket, id, payload)
+  }
+}
+
+function* receiveMessages() {
+  while (true) {
+    const { id, payload } = yield take(actions.RECEIVED)
+
+    yield put(actions.message(id, payload))
+  }
+}
+
 export function* websocket() {
   yield take(actions.CONNECT)
 
@@ -39,12 +58,6 @@ export function* websocket() {
   yield take(actions.CONNECTED)
   yield put(setConnected(true))
 
-  while (true) {
-    const { id, payload } = yield take(actions.SEND)
-
-    send(socket, id, payload)
-
-    const response = yield take(id + ':' + actions.MESSAGE)
-    yield put(actions.message(id, response))
-  }
+  yield fork(sendMessages, socket)
+  yield fork(receiveMessages)
 }
