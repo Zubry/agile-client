@@ -23,6 +23,7 @@ import * as websocket from './features/websocket/actions'
 import * as pointingPoker from './features/pointing-poker/actions'
 
 import Index from './routes/index'
+import Room from './routes/room'
 
 function App() {
   const [vote, setVote] = useState(0.5)
@@ -41,7 +42,9 @@ function App() {
         <Typography paragraph variant="h2">App</Typography>
         <Router>
           <Switch>
-            <Route path="/:room"></Route>
+            <Route path="/:room">
+              <Room />
+            </Route>
             <Route path="*">
               <Index />
             </Route>

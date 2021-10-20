@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid/non-secure'
-
 const connect = () => {
   return new WebSocket('ws://localhost:4040/ws')
 }

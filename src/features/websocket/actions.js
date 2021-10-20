@@ -10,6 +10,7 @@ export const MESSAGE = 'websocket/message'
 export const SEND = 'websocket/send'
 
 export const connect = () => ({ type: CONNECT })
+export const connected = () => ({ type: CONNECTED })
 export const disconnected = () => ({ type: DISCONNECTED })
 export const message = (id, payload) => ({ type: id + ":" + MESSAGE, payload: payload })
 export const send = (...payload) => {
