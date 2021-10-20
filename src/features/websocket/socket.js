@@ -4,9 +4,7 @@ const connect = () => {
   return new WebSocket('ws://localhost:4040/ws')
 }
 
-const send = (socket, ...args) => {
-  const id = nanoid(6)
-
+const send = (socket, id, args) => {
   socket.send(`${id}:${args.join(':')}`)
 
   return id

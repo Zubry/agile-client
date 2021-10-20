@@ -7,22 +7,25 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import { useSelector, useDispatch } from 'react-redux'
+
 import Theme from './theme'
 
 import Vote from './components/Vote'
 import VoteButton from './components/VoteButton'
 
-import useWebSocket from './hooks/useWebSocket'
-import { send } from './websocket'
+import * as websocket from './features/websocket/actions'
+import * as pointingPoker from './features/pointing-poker/actions'
 
 function App() {
   const [vote, setVote] = useState(0.5)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(websocket.connect())
+  }, [])
 
-  const socket = useWebSocket((socket) => {
-    socket.addEventListener('message', e => {
-      console.log(e)
-    })
-  })
+  const state = useSelector(r => r)
 
   return (
     <Theme>
@@ -32,7 +35,12 @@ function App() {
         <Card>
           <CardContent>
             <Button onClick={() => setVote(vote => vote + 1)}>Change vote</Button>
-            <Button onClick={() => socket !== null && send(socket, 'start', 'pointing_poker')}>Start</Button>
+            <Button onClick={() => dispatch(pointingPoker.start())}>Start</Button>
+            <code>
+              <pre>
+                {JSON.stringify(state, null, 2)}
+              </pre>
+            </code>
           </CardContent>
         </Card>
       </Box>
