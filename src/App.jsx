@@ -25,6 +25,10 @@ import * as pointingPoker from './features/pointing-poker/actions'
 import Index from './routes/index'
 import Room from './routes/room'
 
+const basename = process.env.NODE_ENV !== 'production'
+  ? '/'
+  : '/agile-client'
+
 function App() {
   const dispatch = useDispatch()
   
@@ -39,7 +43,7 @@ function App() {
       <CssBaseline />
       <Box p={2}>
         <Typography paragraph variant="h2">App</Typography>
-        <Router>
+        <Router basename={basename}>
           <Switch>
             <Route path="/:room">
               <Room />
