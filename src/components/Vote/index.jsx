@@ -15,14 +15,16 @@ import Points from './Points'
 
 const Vote = ({ name }) => {
   const vote = useSelector(state => state.pointingPoker.state.votes[name])
-  const isRevealed = true
+  const isMe = useSelector(state => name === state.pointingPoker.user)
+
+  const isRevealed = useSelector(state => state.pointingPoker.state.revealed)
 
   return (
     <Fade in key={name}>
       <div>
         <ListItem>
           <ListItemAvatar sx={{ width: 4, minWidth: 0, marginRight: 2 }}>
-            <Avatar variant="rounded" sx={{ width: 4, bgcolor: 'secondary.main' }}>&nbsp;</Avatar>
+            <Avatar variant="rounded" sx={{ width: 4, bgcolor: isMe ? 'secondary.main' : 'transparent' }}>&nbsp;</Avatar>
           </ListItemAvatar>
           <ListItemText>{ name }</ListItemText>
           <ListItemSecondaryAction>

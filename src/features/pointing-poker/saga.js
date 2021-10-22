@@ -37,6 +37,36 @@ export function* vote() {
   return true
 }
 
+export function* clear_votes() {
+  yield take(pointingPoker.CLEAR_VOTES)
+
+  const { id } = yield put(websocket.send('clear_votes'))
+
+  yield take(`${id}:${websocket.MESSAGE}`)
+
+  return true
+}
+
+export function* reveal_votes() {
+  yield take(pointingPoker.REVEAL_VOTES)
+
+  const { id } = yield put(websocket.send('reveal_votes'))
+
+  yield take(`${id}:${websocket.MESSAGE}`)
+
+  return true
+}
+
+export function* unreveal_votes() {
+  yield take(pointingPoker.UNREVEAL_VOTES)
+
+  const { id } = yield put(websocket.send('unreveal_votes'))
+
+  yield take(`${id}:${websocket.MESSAGE}`)
+
+  return true
+}
+
 function* handleUpdates() {
   while (true) {
     const { payload } = yield take(`update:${websocket.MESSAGE}`)
@@ -46,7 +76,7 @@ function* handleUpdates() {
 }
 
 export function* pointingPokerSaga() {
-  const { startRoom, joinRoom } = yield race({
+  const { startRoom } = yield race({
     startRoom: call(start),
     joinRoom: call(join)
   })
@@ -59,7 +89,10 @@ export function* pointingPokerSaga() {
 
   while (true) {
     yield race({
-      vote: call(vote)
+      vote: call(vote),
+      clear_votes: call(clear_votes),
+      reveal_votes: call(reveal_votes),
+      unreveal_votes: call(unreveal_votes),
     })
   }
 }
