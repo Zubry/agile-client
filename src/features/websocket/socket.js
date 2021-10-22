@@ -1,6 +1,6 @@
 const socketURL = process.env.NODE_ENV !== 'production'
   ? 'ws://localhost:4040/ws'
-  : 'ws://agile.gigalixirapp.com/ws'
+  : 'wss://agile.gigalixirapp.com/ws'
 
 const connect = () => {
   return new WebSocket(socketURL)
